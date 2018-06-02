@@ -45,3 +45,34 @@
   -moz-border-radius: 6px 0 6px 6px;
   border-radius: 6px 0 6px 6px;
 }
+
+.index-statement {
+  margin-bottom: 30px;
+}
+
+.index-book {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.profile {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.search-city {
+  margin-bottom: 30px;
+}
+
+.search-book {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.request_books_title {
+  margin-bottom: 30px;
+}
+
+.match_books_title {
+  margin-bottom: 30px;
+}

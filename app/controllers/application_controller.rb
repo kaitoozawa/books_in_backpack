@@ -10,9 +10,4 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
     end
   end
-  
-  def counts(user)
-    @count_requestings = user.requesting.count
-    @count_requesteds = user.requesteds.count
-  end
 end

@@ -1,37 +1,43 @@
-<div>
-  <a href="#">Requested User</a>
-  <a href="#">Matched User</a>
-</div>
-<div style="margin-bottom: 20px">
-  <h2>Books in <%= @mylocation.city %></h2>
-</div>
-<% if @books.present? %>
-  <% @books.each do |book| %>
-    <div class="book">
-      <div class="row">
-        <aside class="col-xs-4">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title"><%= book.title %></h3>
+<div class="search">
+  <div class="row">
+    <div class="col-xs-4">
+      <button class="btn btn-default" type="button"><%= link_to 'Requested Books', request_books_path %> </button>
+      <button class="btn btn-warning" type="button"><%= link_to 'Matched Books', match_books_path %> </button>
+    </div>
+  </div>
+  <div class="search-city">
+    <h2>Books in <%= @mylocation.city %></h2>
+  </div>
+  <% if @books.present? %>
+    <% @books.each do |book| %>
+      <div class="search-book">
+        <div class="row">
+          <aside class="col-xs-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title"><%= book.title %></h3>
+              </div>
+              <div class="panel-body">
+                <img class="media-object img-rounded img-responsive" src="<%= book.image %>" alt="">
+              </div>
             </div>
-            <div class="panel-body">
-              <img class="media-object img-rounded img-responsive" src="<%= book.image %>" alt="">
-            </div>
+          </aside>
+          <div class="col-xs-8">
+            <h3>Owned by: <%= link_to book.user.profile.name, profile_path(id: book.user.profile.id) %></h3>
+            <ul>
+              <li>Author: <%= book.author %></li>
+              <li>Language: <%= book.language %></li>
+              <li><%= book.page %> Page</li>
+              <li>Description: <%= book.description %></li>
+            </ul>
           </div>
-        </aside>
-        <div class="col-xs-8">
-          <h3>Owned by: <%= link_to book.user.profile.name, profile_path(id: book.user.profile.id) %></h3>
-          <ul>
-            <li>Author: <%= book.author %></li>
-            <li>Language: <%= book.language %></li>
-            <li><%= book.page %> Page</li>
-            <li>Description: <%= book.description %></li>
-          </ul>
+        </div>
+        <div class="row">
+          <div class="col-xs-2">
+            <%= render 'relationships/request_match_button', user: book.user %>
+          </div>
         </div>
       </div>
-    </div>
-    <div>
-      <%= render 'relationships/request_match_button', user: book.user %>
-    </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>

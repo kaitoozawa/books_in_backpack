@@ -25,7 +25,7 @@ class User < ApplicationRecord
   end
   
   def match_exist?(other_user)
-    if self.requestings.include(other_user) && self.requested.include?(other_user)
+    if self.requestings.include?(other_user) && self.requesteds.include?(other_user)
       return true
     else
       return false

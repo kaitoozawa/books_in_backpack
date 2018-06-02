@@ -26,7 +26,7 @@ class ProfilesController < ApplicationController
     @profile = current_user.profile
     if @profile.update(profile_params)
       flash[:success] = 'Profile Update Successful'
-      redirect_to profile
+      redirect_to profile_path(id: @profile.id)
     else
       flash.now[:danger] = 'Profile Update Failed'
       render :edit

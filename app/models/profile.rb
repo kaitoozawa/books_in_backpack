@@ -7,5 +7,6 @@ class Profile < ApplicationRecord
   validates :description, presence: true, length: { maximum: 255 }
   
   mount_uploader :image, ImageUploader
+  
   belongs_to :user
 end

@@ -1,0 +1,11 @@
+<div>
+  <h1 class="match_books_title"><%= @counts %> Match</h1>
+  <ul>
+    <% @match_users.each do |user| %>
+      <li><%= link_to user.profile.name, profile_path(id: user.profile.id) %> :  <%= user.book.title %></li>
+    <% end %>
+  </ul>
+</div>
+<div>
+  <%= link_to 'Back to Search', search_path %>
+</div>

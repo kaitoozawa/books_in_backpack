@@ -10,6 +10,22 @@ class BooksController < ApplicationController
     end
   end
   
+  def request_books
+    @request_users = current_user.requestings
+    @counts = @request_users.count
+  end
+  
+  def match_books
+    request_users = current_user.requestings
+    @match_users = []
+    request_users.each do |user|
+      if current_user.match_exist?(user)
+        @match_users << user
+      end
+    end
+    @counts = @match_users.count
+  end
+  
   def new
     @book = Book.new
   end

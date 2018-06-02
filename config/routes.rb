@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: 'toppages#index'
 
   get 'signup', to: 'users#new'
-  resources :users, only: [:show, :new, :create]
+  resources :users, only: [:show, :new, :create] 
   patch 'mylocation', to: 'users#update_mylocation'
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   
   resources :books, only: [:new, :create, :edit, :update]
   get 'search', to: 'books#search'
+  get 'request_books', to: 'books#request_books'
+  get 'match_books', to: 'books#match_books'
   resources :profiles, only: [:show, :new, :create, :edit, :update]
   resources :relationships, only: [:create, :destroy]
 end
