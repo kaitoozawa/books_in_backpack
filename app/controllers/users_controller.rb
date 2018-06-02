@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    
+
     if @user.save
       flash[:success] = 'Signup Successful'
       redirect_to root_url
@@ -13,6 +13,10 @@ class UsersController < ApplicationController
       flash.now[:danger] = 'Signup Failed'
       render :new
     end
+  end
+  
+  def update_mylocation
+    current_user.update(mylocation_id: params[:mylocation_id])
   end
   
   private

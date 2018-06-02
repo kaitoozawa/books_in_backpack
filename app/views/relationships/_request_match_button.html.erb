@@ -1,0 +1,15 @@
+<% unless current_user == user %>
+  <% if current_user.match_exist?(user) %>
+    <a href="#">Match!</a>
+  <% elsif current_user.request_exist?(user) %>
+    <%= form_for(current_user.relationships.find_by(request_id: user.id), html: { method: :delete }) do |f| %>
+      <%= hidden_field_tag :request_id, user.id %>
+      <%= f.submit 'Unrequest', class: 'btn btn-danger btn-block' %>
+    <% end %>
+  <% else %>
+    <%= form_for(current_user.relationships.build) do |f| %>
+      <%= hidden_field_tag :request_id, user.id %>
+      <%= f.submit 'Request', class: 'btn btn-primary btn-block' %>
+    <% end %>
+  <% end %>
+<% end %>
