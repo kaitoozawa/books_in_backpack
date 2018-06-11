@@ -22,4 +22,6 @@ Rails.application.routes.draw do
   resources :messages, only: [:index, :create]
   patch 'accept_trade1', to: 'trade1s#accept_trade1'
   patch 'cancel_trade1', to: 'trade1s#cancel_trade1'
+  patch 'finish_trade2', to: 'trade2s#finish_trade2'
+  patch 'cancel_trade2', to: 'trade2s#cancel_trade2'
 end

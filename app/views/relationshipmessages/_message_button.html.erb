@@ -5,10 +5,14 @@
     <% else %>
       <button class="btn btn-success" type="button"><a href="#">Waiting</a></button>
     <% end %>
-  <% else %>
+  <% elsif m_match_in_users?(users) %>
     <% if current_user.m_match_exist?(user) %>
       <%= link_to 'Begin Message', messages_path(recipient_id: user.id) %>
-    <% elsif current_user.m_requestings_exist?(user) %>
+    <% else %>
+      <button class="btn btn-success" type="button"><a href="#">Waiting</a></button>
+    <% end %>
+  <% else %>
+    <% if current_user.m_requestings_exist?(user) %>
       <button class="btn btn-success" type="button"><a href="#">Waiting</a></button>
     <% else %>
       <%= form_for(current_user.relationshipmessages.build) do |f| %>

@@ -1,6 +1,4 @@
 class RelationshipsController < ApplicationController
-  before_action :require_user_logged_in
-  
   def create
     user = User.find(params[:request_id])
     current_user.send_request(user)

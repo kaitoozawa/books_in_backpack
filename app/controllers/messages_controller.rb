@@ -21,4 +21,9 @@ class MessagesController < ApplicationController
       redirect_to messages_path(recipient_id: other_user.id)
     end
   end
+  
+  private
+  
+  def trade1_canceled?(user, other_user)
+  end
 end

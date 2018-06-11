@@ -40,7 +40,7 @@ class User < ApplicationRecord
     end
   end
   
-  def request_exist?(other_user)
+  def requestings_exist?(other_user)
     self.requestings.include?(other_user)
   end
   
@@ -57,6 +57,15 @@ class User < ApplicationRecord
     else
       return false
     end
+  end
+  
+  def m_match_in_usesrs?(other_users)
+    other_users.each do |user|
+      if m_match_exist?(user)
+        return true
+      end
+    end
+    return false
   end
   
   def m_requestings_exist?(other_user)
@@ -78,18 +87,10 @@ class User < ApplicationRecord
     end
   end
   
-  #for Message 
+  # Message 
   def send_message(other_user, content)
     unless self == other_user
       self.messages.build(recipient_id: other_user.id, content: content)
-    end
-  end
-  
-  def message_user_exist?(other_user)
-    if self.message_user_id.present? && self.message_user_id == other_user.id
-      return true
-    else
-      return false
     end
   end
   
@@ -123,6 +124,11 @@ class User < ApplicationRecord
   end
   
   #Trade2 button
-  def book_exchange_done
+  def finish_exchange(trade2)
+    trade2.update(answer: 'Yes')
+  end
+  
+  def cancel2_exchange(trade2)
+    trade2.update(answer: 'No')
   end
 end

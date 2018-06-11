@@ -3,7 +3,7 @@
   <ul>
     <% @match_users.each do |user| %>
       <li><%= link_to user.profile.name, profile_path(id: user.profile.id) %> who has <%= link_to user.book.title, book_path(user.book.id) %>></li>
-      <%= render 'relationshipmessages/message_button', user: user %>
+      <%= render 'relationshipmessages/message_button', user: user, users: @match_users %>
     <% end %>
   </ul>
 </div>

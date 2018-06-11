@@ -1,7 +1,7 @@
 class Trade2sController < ApplicationController
-  def create
+  def finish_trade2
   end
 
-  def destroy
+  def cancel_trade2
   end
 end
