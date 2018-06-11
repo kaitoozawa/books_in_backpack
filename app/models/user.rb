@@ -17,8 +17,10 @@ class User < ApplicationRecord
   has_many :reverses_of_relationshipmessage, class_name: 'Relationshipmessage', foreign_key: 'm_request_id'
   has_many :m_requesteds, through: :reverses_of_relationshipmessage, source: :user
   has_many :messages
+  has_one :trade1
+  has_one :trade2s
   
-  # For request & unrequest button
+  #Request & Unrequest button
   def send_request(other_user)
     unless self == other_user
       self.relationships.find_or_create_by(request_id: other_user.id)
@@ -42,7 +44,7 @@ class User < ApplicationRecord
     self.requestings.include?(other_user)
   end
   
-  # For Message button
+  #Message button
   def m_send_request(other_user)
     unless self == other_user
       self.relationshipmessages.find_or_create_by(m_request_id: other_user.id)
@@ -61,7 +63,7 @@ class User < ApplicationRecord
     self.m_requestings.include?(other_user)
   end
   
-  #implementation after message button is pushed
+  #After message_button is pushed
   def go_to_message(other_user)
     self.update(message_user_id: other_user.id)
     others = []
@@ -76,6 +78,7 @@ class User < ApplicationRecord
     end
   end
   
+  #for Message 
   def send_message(other_user, content)
     unless self == other_user
       self.messages.build(recipient_id: other_user.id, content: content)
@@ -88,5 +91,38 @@ class User < ApplicationRecord
     else
       return false
     end
+  end
+  
+  #Trade1 button
+  def accept_exchange(trade1)
+    trade1.update(answer: 'Yes')
+  end
+  
+  def cancel_exchange(trade1)
+    trade1.update(answer: 'No')
+  end
+  
+  def both_accept?(other_user)
+    if other_user.trade1.present?
+      if self.trade1.answer == 'Yes' && other_user.trade1.answer == 'Yes'
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+  
+  def accepted?(other_user)
+    if self.trade1.answer == 'Yes' 
+      return true
+    else
+      return false
+    end
+  end
+  
+  #Trade2 button
+  def book_exchange_done
   end
 end

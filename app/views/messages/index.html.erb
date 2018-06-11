@@ -1,2 +1,8 @@
 <h1>Message</h1>
 <%= render 'messages', messages: @messages, user: @user, other_user: @other_user %>
+<div class="row">
+  <%= render 'trade1s/trade1_button', trade1: @trade1, other_user: @other_user %>
+</div>
+<div class="row">
+  <%= render 'trade2s/trade2_button' %>
+</div>

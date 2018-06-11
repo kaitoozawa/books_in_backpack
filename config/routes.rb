@@ -1,12 +1,9 @@
 Rails.application.routes.draw do
-  get 'relationshipmessages/create'
-
   root to: 'toppages#index'
 
   get 'signup', to: 'users#new'
   resources :users, only: [:show, :new, :create] 
   patch 'mylocation', to: 'users#update_mylocation'
-  # patch 'mymessage', to: 'users#update_message_user_id'
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
@@ -23,4 +20,6 @@ Rails.application.routes.draw do
   resources :relationships, only: [:create, :destroy]
   resources :relationshipmessages, only: [:create, :destroy]
   resources :messages, only: [:index, :create]
+  patch 'accept_trade1', to: 'trade1s#accept_trade1'
+  patch 'cancel_trade1', to: 'trade1s#cancel_trade1'
 end

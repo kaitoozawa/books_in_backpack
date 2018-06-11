@@ -6,6 +6,7 @@ class MessagesController < ApplicationController
     @messages = Message.where(user_id: current_user.id, recipient_id: params[:recipient_id])
     .or(Message.where(user_id: params[:recipient_id], recipient_id: current_user.id)).order(created_at: :asc)
     @message = current_user.messages.build
+    @trade1 = Trade1.find_or_create_by(user_id: @user.id, trader_id: @other_user.id)
   end
 
   def create

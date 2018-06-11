@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180607054825) do
+ActiveRecord::Schema.define(version: 20180611165235) do
 
   create_table "books", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
@@ -82,6 +82,28 @@ ActiveRecord::Schema.define(version: 20180607054825) do
     t.index ["user_id"], name: "index_relationships_on_user_id", using: :btree
   end
 
+  create_table "trade1s", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "trader_id"
+    t.string   "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trader_id"], name: "index_trade1s_on_trader_id", using: :btree
+    t.index ["user_id", "trader_id"], name: "index_trade1s_on_user_id_and_trader_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_trade1s_on_user_id", using: :btree
+  end
+
+  create_table "trade2s", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "trader_id"
+    t.string   "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trader_id"], name: "index_trade2s_on_trader_id", using: :btree
+    t.index ["user_id", "trader_id"], name: "index_trade2s_on_user_id_and_trader_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_trade2s_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "email"
@@ -102,5 +124,9 @@ ActiveRecord::Schema.define(version: 20180607054825) do
   add_foreign_key "relationshipmessages", "users", column: "m_request_id"
   add_foreign_key "relationships", "users"
   add_foreign_key "relationships", "users", column: "request_id"
+  add_foreign_key "trade1s", "users"
+  add_foreign_key "trade1s", "users", column: "trader_id"
+  add_foreign_key "trade2s", "users"
+  add_foreign_key "trade2s", "users", column: "trader_id"
   add_foreign_key "users", "mylocations"
 end

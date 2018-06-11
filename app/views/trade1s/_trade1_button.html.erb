@@ -1,0 +1,8 @@
+<% if current_user.both_accept?(other_user) %>
+<% elsif current_user.accepted?(other_user) %>
+  <button class="btn btn-primary" type="button">Waiting</button>
+  <%= link_to 'Cancel Book Exchange', cancel_trade1_path(other_user_id: other_user.id), method: :patch, class: 'btn btn-danger btn-blcok' %>
+<% else %>
+  <%= link_to 'Accept Book Exchange', accept_trade1_path(other_user_id: other_user.id), method: :patch, class: 'btn btn-primary btn-blcok' %>
+  <%= link_to 'Cancel Book Exchange', cancel_trade1_path(other_user_id: other_user.id), method: :patch, class: 'btn btn-danger btn-blcok' %>
+<% end %>
