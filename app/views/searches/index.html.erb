@@ -1,8 +1,9 @@
 <div class="search">
   <div class="row">
     <div class="col-xs-4">
-      <button class="btn btn-default" type="button"><%= link_to 'Requested Books', request_books_path %> </button>
-      <button class="btn btn-warning" type="button"><%= link_to 'Matched Books', match_books_path %> </button>
+      <button class="btn btn-default" type="button"><%= link_to 'Sent Request', request_users_search_path(current_user) %> </button>
+      <button class="btn btn-default" type="button"><%= link_to 'Recieved Request', requested_users_search_path(current_user) %> </button>
+      <button class="btn btn-success" type="button"><%= link_to 'Match', matched_users_search_path(current_user) %> </button>
     </div>
   </div>
   <div class="search-city">
@@ -34,7 +35,7 @@
         </div>
         <div class="row">
           <div class="col-xs-2">
-            <%= render 'relationships/request_match_button', user: book.user %>
+            <%= render 'relationships/request_button', user: book.user %>
           </div>
         </div>
       </div>

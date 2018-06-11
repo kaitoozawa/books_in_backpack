@@ -1,0 +1,12 @@
+<div>
+  <h1>Sent Request</h1>
+  <ul>
+    <% @request_users.each do |user| %>
+      <li><%= link_to user.profile.name, profile_path(id: user.profile.id) %> : <%= link_to user.book.title, book_path(user.book.id) %></li>
+      <%= render 'relationships/request_button', user: user %>
+    <% end %>
+  </ul>
+</div>
+<div>
+  <%= link_to 'Back to Search', searches_path %>
+</div>

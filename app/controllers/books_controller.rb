@@ -1,29 +1,6 @@
 class BooksController < ApplicationController
-  def search
-    @mylocation = Mylocation.find_by(id: current_user.mylocation_id)
-    @users = @mylocation.users
-    @books = []
-    @users.each do |user|
-      if user.book.present?
-        @books << user.book
-      end
-    end
-  end
-  
-  def request_books
-    @request_users = current_user.requestings
-    @counts = @request_users.count
-  end
-  
-  def match_books
-    request_users = current_user.requestings
-    @match_users = []
-    request_users.each do |user|
-      if current_user.match_exist?(user)
-        @match_users << user
-      end
-    end
-    @counts = @match_users.count
+  def show
+    @book = Book.find(params[:id])
   end
   
   def new

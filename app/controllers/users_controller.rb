@@ -19,6 +19,11 @@ class UsersController < ApplicationController
     current_user.update(mylocation_id: params[:mylocation_id])
   end
   
+  # def update_message_user_id
+  #   current_user.update(message_user_id: params[:message_user_id])
+  #   redirect_to search_path
+  # end
+  
   private
   
   def user_params

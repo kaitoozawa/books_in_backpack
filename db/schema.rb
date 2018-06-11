@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180602120259) do
+ActiveRecord::Schema.define(version: 20180607054825) do
 
   create_table "books", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(version: 20180602120259) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "recipient_id"
+    t.string   "content"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["recipient_id"], name: "index_messages_on_recipient_id", using: :btree
+    t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
   end
 
   create_table "mylocations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -52,6 +62,16 @@ ActiveRecord::Schema.define(version: 20180602120259) do
     t.index ["user_id"], name: "index_profiles_on_user_id", using: :btree
   end
 
+  create_table "relationshipmessages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "m_request_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["m_request_id"], name: "index_relationshipmessages_on_m_request_id", using: :btree
+    t.index ["user_id", "m_request_id"], name: "index_relationshipmessages_on_user_id_and_m_request_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_relationshipmessages_on_user_id", using: :btree
+  end
+
   create_table "relationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.integer  "request_id"
@@ -69,12 +89,17 @@ ActiveRecord::Schema.define(version: 20180602120259) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "mylocation_id"
+    t.integer  "message_user_id"
     t.index ["mylocation_id"], name: "index_users_on_mylocation_id", using: :btree
   end
 
   add_foreign_key "books", "users"
+  add_foreign_key "messages", "users"
+  add_foreign_key "messages", "users", column: "recipient_id"
   add_foreign_key "mylocations", "countries"
   add_foreign_key "profiles", "users"
+  add_foreign_key "relationshipmessages", "users"
+  add_foreign_key "relationshipmessages", "users", column: "m_request_id"
   add_foreign_key "relationships", "users"
   add_foreign_key "relationships", "users", column: "request_id"
   add_foreign_key "users", "mylocations"

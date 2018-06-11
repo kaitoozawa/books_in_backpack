@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= user.name %> & <%= other_user.name %></h3>
+    </div>
+    <div class="panel-body">
+      <% messages.each do |message| %>
+        <div class="row">
+        <% if message.user_id == user.id %>
+          <div class="col-xs-4" style="color: green"><%= message.content %></div>
+        <% else %>
+          <div class="col-xs-offset-8 col-xs-4" style="text-align: right"><%= message.content %></div>
+        <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <%= form_for(@message) do |f| %>
+    <div class="form-group">
+      <%= f.text_area :content, class: 'form-control', rows: 2 %>
+    </div>
+    <%= hidden_field_tag :recipient_id, other_user.id %>
+    <%= f.submit 'Post', class: 'btn btn-primary btn-block' %>
+  <% end %>
+</div>

@@ -1,0 +1,20 @@
+<% unless current_user == user %>
+  <% if current_user.message_user_id.present? %>
+    <% if user.id == current_user.message_user_id %>
+      <%= link_to 'Go to Message', messages_path(recipient_id: user.id) %>
+    <% else %>
+      <button class="btn btn-success" type="button"><a href="#">Waiting</a></button>
+    <% end %>
+  <% else %>
+    <% if current_user.m_match_exist?(user) %>
+      <%= link_to 'Begin Message', messages_path(recipient_id: user.id) %>
+    <% elsif current_user.m_requestings_exist?(user) %>
+      <button class="btn btn-success" type="button"><a href="#">Waiting</a></button>
+    <% else %>
+      <%= form_for(current_user.relationshipmessages.build) do |f| %>
+        <%= hidden_field_tag :m_request_id, user.id %>
+        <%= f.submit 'Ask for Message!', class: 'btn btn-default btn-block' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
