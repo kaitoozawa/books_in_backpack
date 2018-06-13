@@ -17,7 +17,7 @@
             <% if current_user.message_user_id.present? %>
               <li><%= link_to 'Message', messages_path(recipient_id: current_user.message_user_id) %></li>
             <% else %>
-              <li><a href="#">Message</a></li>
+              <li><%= link_to 'Message', messages_path %></li>
             <% end %>
             <%= render 'layouts/mylocation' %>
             <li class="dropdown">

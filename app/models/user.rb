@@ -18,7 +18,7 @@ class User < ApplicationRecord
   has_many :m_requesteds, through: :reverses_of_relationshipmessage, source: :user
   has_many :messages
   has_one :trade1
-  has_one :trade2s
+  has_one :trade2
   
   #Request & Unrequest button
   def send_request(other_user)
@@ -59,7 +59,7 @@ class User < ApplicationRecord
     end
   end
   
-  def m_match_in_usesrs?(other_users)
+  def m_match_in_users?(other_users)
     other_users.each do |user|
       if m_match_exist?(user)
         return true
@@ -95,15 +95,15 @@ class User < ApplicationRecord
   end
   
   #Trade1 button
-  def accept_exchange(trade1)
+  def trade1_accept_exchange(trade1)
     trade1.update(answer: 'Yes')
   end
   
-  def cancel_exchange(trade1)
+  def trade1_cancel_exchange(trade1)
     trade1.update(answer: 'No')
   end
   
-  def both_accept?(other_user)
+  def trade1_both_accept?(other_user)
     if other_user.trade1.present?
       if self.trade1.answer == 'Yes' && other_user.trade1.answer == 'Yes'
         return true
@@ -115,7 +115,7 @@ class User < ApplicationRecord
     end
   end
   
-  def accepted?(other_user)
+  def trade1_user_accepted?(other_user)
     if self.trade1.answer == 'Yes' 
       return true
     else
@@ -124,11 +124,31 @@ class User < ApplicationRecord
   end
   
   #Trade2 button
-  def finish_exchange(trade2)
+  def trade2_accept_exchange(trade2)
     trade2.update(answer: 'Yes')
   end
   
-  def cancel2_exchange(trade2)
+  def trade2_cancel_exchange(trade2)
     trade2.update(answer: 'No')
+  end
+  
+  def trade2_both_accept?(other_user)
+    if other_user.trade2.present?
+      if self.trade2.answer == 'Yes' && other_user.trade2.answer == 'Yes'
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+  
+  def trade2_user_accepted?(other_user)
+    if self.trade2.answer == 'Yes' 
+      return true
+    else
+      return false
+    end
   end
 end

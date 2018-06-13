@@ -1,8 +1,14 @@
 <h1>Message</h1>
-<%= render 'messages', messages: @messages, user: @user, other_user: @other_user %>
-<div class="row">
-  <%= render 'trade1s/trade1_button', trade1: @trade1, other_user: @other_user %>
-</div>
-<div class="row">
-  <%= render 'trade2s/trade2_button' %>
-</div>
+<% if current_user.message_user_id.present? %>
+  <%= render 'messages', messages: @messages, user: @user, other_user: @other_user %>
+  <div class="row">
+    <%= render 'trade1s/trade1_button', other_user: @other_user %>
+  </div>
+  <div class="row">
+    <%= render 'trade2s/trade2_button', other_user: @other_user %>
+  </div>
+<% else %>
+  <h3>Message does not exist</h3>
+  <h4>OR</h4>
+  <h3>Exchange has been finished or canceled</h3>
+<% end %>

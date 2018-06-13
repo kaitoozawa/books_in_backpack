@@ -1,13 +1,13 @@
 <% unless current_user == user %>
   <% if current_user.message_user_id.present? %>
     <% if user.id == current_user.message_user_id %>
-      <%= link_to 'Go to Message', messages_path(recipient_id: user.id) %>
+      <%= link_to 'Go to Message', messages_path(recipient_id: user.id), class: 'btn btn-primary btn-blcok' %>
     <% else %>
       <button class="btn btn-success" type="button"><a href="#">Waiting</a></button>
     <% end %>
-  <% elsif m_match_in_users?(users) %>
+  <% elsif current_user.m_match_in_users?(users) %>
     <% if current_user.m_match_exist?(user) %>
-      <%= link_to 'Begin Message', messages_path(recipient_id: user.id) %>
+      <%= link_to 'Begin Message', messages_path(recipient_id: user.id), class: 'btn btn-primary btn-blcok' %>
     <% else %>
       <button class="btn btn-success" type="button"><a href="#">Waiting</a></button>
     <% end %>
