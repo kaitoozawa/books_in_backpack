@@ -132,18 +132,6 @@ class User < ApplicationRecord
     trade2.update(answer: 'No')
   end
   
-  def trade2_both_accept?(other_user)
-    if other_user.trade2.present?
-      if self.trade2.answer == 'Yes' && other_user.trade2.answer == 'Yes'
-        return true
-      else
-        return false
-      end
-    else
-      return false
-    end
-  end
-  
   def trade2_user_accepted?(other_user)
     if self.trade2.answer == 'Yes' 
       return true
